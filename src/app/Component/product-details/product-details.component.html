@@ -1,0 +1,86 @@
+<div class="container">
+
+  <h3>Welcome to the product Details world...!</h3>
+  <h6>To get the product details please click on button</h6>
+  <div class="form-group">
+  <input type="button" class="btn btn-success" value="Get Product Details" (click)="loadData()"/>
+  
+  </div>
+
+
+<div *ngIf="showTable===true">
+              <div class="form-group">
+                              <label>Search :</label>
+                      <div>
+                                  <input type="text" placeholder="Eneter search text" class="form-control" (input)='getSearchItem($event.target.value)'/>
+                      </div>
+              </div>
+  <table class="table table-bordered table-striped">
+
+      <thead>
+          <tr>
+              <td *ngFor="let t of tableColumns" >{{t}} </td>
+              <td>Update Action</td>
+              <td>Delete Action</td>
+          </tr>
+          
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let s of FilteredTable" >
+              <td *ngFor="let c of tableColumns">{{s[c]}}</td>
+              <td> <input type="button" class="btn btn-success" value="Update Product" (click)="updateForm(s)"/></td>
+              <td> <input type="button" class="btn btn-danger" value="Delete Product" (click)="delete(s.ProductRowId)"/></td>
+          </tr>
+          
+      </tbody>
+
+  </table>
+</div>
+<div  *ngIf="UpdateClick===false">
+              <h6>Click here to add new product</h6>
+              <input type="button" class="btn btn-primary" value="Add Product"  (click)="loadForm()"/>
+              
+</div>
+<div *ngIf="showForm===true">
+      <form [formGroup]="frmProduct" (ngSubmit)="submitForm()">
+              <div class="form-group">
+                      <label for="ProductId">Product Id</label>
+                      <input type="text" class="form-control" formControlName="ProductId"> 
+              </div>
+              <div class="form-group">
+                      <label for="ProductName">Product Name</label>
+                      <input type="text" class="form-control" formControlName="ProductName"> 
+              </div>
+              <div class="form-group">
+                      <label for="ProductRowId">ProductRow Id</label>
+                      <input type="text" class="form-control" formControlName="ProductRowId"> 
+              </div>
+              <div class="form-group">
+                      <label for="BasePrice">Base Price</label>
+                      <input type="text" class="form-control" formControlName="BasePrice"> 
+              </div>
+              <div class="form-group">
+                      <label for="CategoryName">Category Name</label>
+                      <input type="text" class="form-control" formControlName="CategoryName"> 
+              </div>
+              <div class="form-group">
+                      <label for="Description">Description</label>
+                      <input type="text" class="form-control" formControlName="Description"> 
+              </div>
+
+              <div class="form-group">
+                      <label for="Manufacturer">Manufacturer</label>
+                      <input type="text" class="form-control" formControlName="Manufacturer"> 
+              </div>
+              <div class="form-group">
+                      <input type="submit" [disabled]="!frmProduct.valid" value="Save" class="btn btn-success">
+              </div>
+              
+      </form>
+</div>
+
+<div *ngIf="showForm===false && showTable ===false">
+  <span>{{updateMessage}}</span>
+</div>
+</div>
